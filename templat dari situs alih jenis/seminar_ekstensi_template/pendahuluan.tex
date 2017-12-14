@@ -1,0 +1,37 @@
+%----------------------------------------------------------------------------------------
+%	PENDAHULUAN
+%----------------------------------------------------------------------------------------
+\section*{PENDAHULUAN} % Sub Judul PENDAHULUAN
+% Tuliskan isi Pendahuluan di bagian bawah ini. 
+% Jika ingin menambahkan Sub-Sub Judul lainnya, silakan melihat contoh yang ada.
+% Sub-sub Judul 
+\subsection*{Latar Belakang}
+Tanaman obat adalah tanaman yang mengandung bahan yang dapat digunakan sebagai pengobatan dan kandungan kimianya dapat digunakan sebagai bahan obat sintetik (\cite{DEPTAN}). Dengan bertambahnya keanekaragaman tanaman obat, maka dokumentasi hasil penelitian tanaman obat semakin bertambah. Oleh karena itu, dibutuhkan mesin pencari yang dapat mencari definisi dan manfaat dari tanaman obat. \citeauthor{HERAWAN} (\cite*{HERAWAN}) melakukan penelitian untuk temu kembali informasi dengan ekstraksi ciri dokumen menggunakan \textit{chi-square} dengan klasifikasi \textit{naive bayes} pada dokumen \textit{eXtensible Markup Language} (XML) tanaman obat.
+
+Dalam pengembangan temu kembali informasi format dokumen yang digunakan bermacam-macam diantaranya \textit{freetext} atau XML. XML merupakan sintaks dan model data yang direpresentasikan dengan bentuk tree dan bergantung pada konsep \textit{tag} seperti \textit{Hypertext Markup Language} (HTML). XML saat ini digunakan untuk membuat infrastruktur web semantik. Salah satu tujuan penting dari web semantik adalah untuk membuat makna informasi yang jelas, sehingga memungkinkan akses yang lebih efektif untuk pengetahuan yang terkandung dalam lingkungan informasi yang beraneka ragam (\cite{LEI}). Agar kinerja mesin pencari meningkat maka dokumen yang diolah harus memiliki skema ontologi. Ontology merupakan skema metadata yang dapat menambahkan makna dari data dan memungkinkan untuk menyimpulkan informasi baru dari data yang ada. Salah satu dokumen yang dapat mendukung ontologi adalah \textit{Resource Description Framework} (RDF).
+
+\citeauthor{MINACK} (\cite*{MINACK}) melakukan penelitian untuk membuat full-text search dengan dokumen RDF. RDF diolah menggunakan bahasa kueri SPARQL, akan tetapi tidak cukup mampu untuk menangani jumlah data yang besar. SPARQL hanya mampu melakukan penyeleksian berdasarkan \textit{regular expression} sehingga dibutuhkan aplikasi yang dapat melakukan \textit{indexing}, \textit{stemming}, dan \textit{ranking} pada \textit{search engine}.
+
+Banyak aplikasi mesin pencari yang sudah dikembangkan antara lain Sphinx dan Lucene. Salah satu aplikasi yang dapat melakukan pencarian terhadap dokumen RDF adalah Lucene. Lucene merupakan aplikasi mesin pencari yang menerapkan konsep \textit{full-text search}. Lucene memiliki performa yang sangat baik walaupun digunakan pada sumber daya yang rendah (\cite{MINACK}). Lucene dapat melakukan \textit{stemming} dan \textit{lemmatization}, pencarian menggunakan frase, \textit{wildcard}, \textit{fuzzy}, \textit{proximity} dan \textit{range queries}. Untuk melakukan pengindeksan dokumen RDF, Lucene membutuhkan aplikasi yang dapat mengolah data RDF salah satunya adalah Sesame. Sesame merupakan \textit{open-source framework} untuk media penyimpanan RDF dan menyediakan bahasa kueri SeRQL dan SPARQL untuk \textit{parsing} data. Oleh karena itu penelitian ini dilakukan untuk mengembangkan mesin pencari menggunakan Sesame dan Lucene pada dokumen RDF.
+
+% Sub-sub Judul 
+\subsection*{Perumusan Masalah}
+Penelitian ini dilakukan untuk menjawab permasalahan :
+\begin{enumerate}[noitemsep] 
+\item Bagaimana metode untuk mengkonversi format XML menjadi RDF?
+\item Apakah Lucene mampu mengindeks dokumen dengan format RDF?
+\item Bagaimana kinerja search engine yang dikembangkan dengan menggunakan Lucene pada dokumen RDF?
+\end{enumerate}
+
+\subsection*{Tujuan}
+Tujuan penelitian ini antara lain:
+\begin{enumerate}[noitemsep] 
+\item Mengimplementasikan sistem Lucene untuk membangun search engine pada dokumen RDF.
+\item Mengimplementasikan metode untuk konversi dokumen XML menjadi dokumen RDF.
+\end{enumerate}
+
+\subsection*{Manfaat}
+Penelitian ini diharapkan dapat membantu seseorang dalam mencari informasi yang relevan mengenai tanaman obat di Indonesia.
+
+\subsection*{Ruang Lingkup}
+Ruang lingkup penelitian ini yaitu proses \textit{indexing} dilakukan terhadap semua atribut \textit{field} yang terdapat pada dokumen RDF dengan bobot yang tidak dibedakan dan struktur dokumen RDF sama untuk setiap dokumen.

@@ -1,0 +1,15 @@
+[0] Config.pm:354> INFO - This is Biber 2.7
+[1] Config.pm:357> INFO - Logfile is 'kolokium_ekstensi.blg'
+[129] biber-MSWIN64:303> INFO - === 
+[218] Biber.pm:359> INFO - Reading 'kolokium_ekstensi.bcf'
+[572] Biber.pm:832> INFO - Using all citekeys in bib section 0
+[670] Biber.pm:3670> INFO - Processing section 0
+[790] Biber.pm:3840> INFO - Looking for bibtex format file 'pustaka.bib' for section 0
+[811] bibtex.pm:1435> INFO - Decoding LaTeX character macros into UTF-8
+[829] bibtex.pm:1292> INFO - Found BibTeX data source 'pustaka.bib'
+[997] UCollate.pm:68> INFO - Overriding locale 'en-US' defaults 'normalization = NFD' with 'normalization = prenormalized'
+[997] UCollate.pm:68> INFO - Overriding locale 'en-US' defaults 'variable = shifted' with 'variable = non-ignorable'
+[998] Biber.pm:3499> INFO - Sorting list 'nyt/global/' of type 'entry' with scheme 'nyt' and locale 'en-US'
+[998] Biber.pm:3505> INFO - No sort tailoring available for locale 'en-US'
+[1032] bbl.pm:608> INFO - Writing 'kolokium_ekstensi.bbl' with encoding 'UTF-8'
+[1037] bbl.pm:712> INFO - Output to kolokium_ekstensi.bbl

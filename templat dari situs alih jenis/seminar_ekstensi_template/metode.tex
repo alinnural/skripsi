@@ -1,0 +1,87 @@
+%----------------------------------------------------------------------------------------
+%	METODE
+%----------------------------------------------------------------------------------------
+\section*{METODE PENELITIAN}
+Tahapan penelitian terdiri atas membangun dokumen RDF tanaman obat, penyimpanan dokumen ke dalam aplikasi Sesame, proses \textit{indexing} dan pencarian menggunakan Lucene, serta evaluasi.
+
+\subsection*{Membangun Dokumen RDF}
+RDF adalah model metadata dari bahasa yang direkomendasikan oleh W3C untuk membangun infrastruktur web semantik (\cite{GUTIERREZ}). Pada RDF, sebuah deskripsi dari sumber direpresentasikan sebagai sejumlah triple, tiga bagian dari setiap \textit{triple} disebut subyek, predikat, dan objek. Subyek dari \textit{triple} adalah \textit{Uniform Resource Identifier} (URI) yang mendefinisikan sumber. Objek dapat berupa nilai literal sederhana, seperti string, numerik, tanggal, atau URI dari sumberdaya lainnya yang berkaitan dengan subyek. Predikat mengindikasikan hubungan antara subyek dan objek. RDF juga menyediakan sebuah sintaks berbasis XML yang disebut juga RDF/XML.
+
+XML dan RDF secara umum digunakan untuk membangun infrastruktur semantik tetapi keduanya memiliki fungsi yang berbeda. XML berkaitan dengan transmisi data, sedangkan RDF berkaitan dengan konten informasi. Dokumen XML yang digunakan dalam penelitian ini adalah dokumen tanaman obat yang telah digunakan sebelumnya pada penilitian \citeauthor{HERAWAN} (\cite*{HERAWAN}). Korpus tersebut terdiri atas 93 dokumen. Data tanaman obat kemudian dikonversi menjadi dokumen RDF/XML dan disimpan ke dalam aplikasi Sesame.
+
+\subsection*{Sesame}
+Pada penelitian ini digunakan Sesame untuk pengolahan data dokumen RDF. Sesame merupakan aplikasi yang dikembangkan oleh Aduna yang menyediakan fungsi untuk \textit{parsing}, menyimpan, dan kueri pada data RDF. Sesame menyediakan dua bahasa kueri yaitu SeRQL dan SPARQL. SeRQL dan SPARQL merupakan bahasa kueri yang dikembangkan oleh Aduna yang digunakan untuk memanipulasi data dan parsing data RDF. Dokumen RDF tanaman obat disimpan pada aplikasi Sesame untuk di \textit{parsing} menggunakan kueri SPARQL.
+
+\subsection*{Lucene}
+Proses \textit{indexing} dilakukan menggunakan perangkat lunak Lucene yang mencakup tokenisasi, \textit{stemming} dan \textit{lemmatization}, pembuangan \textit{stopwords}, pembobotan, dan penyimpanan hasil \textit{indexing} ke dokumen Lucene.
+
+Tokenisasi merupakan proses pemotongan teks untuk mendapatkan token dari suatu berkas (\cite{MANNING}). Tokenisasi melakukan pemisahan terhadap isi dokumen menjadi unit yang lebih kecil yang biasa disebut juga kata. \textit{Stemming} dan \textit{lemmatization} merupakan proses pengolahan linguistik tambahan yang dapat ditangani dengan tokenisasi. Tokenisasi dilakukan untuk semua korpus tanaman obat yang telah tersedia. Pada tokensasi juga dilakukan pembuangan \textit{stopwords}.
+
+\textit{Stopwords} merupakan kata umum yang sering muncul dalam suatu dokumen dengan jumlah besar tetapi tidak memiliki makna. \textit{Stopwords} dibuang karena dianggap akan mengurangi akurasi dari informasi yang di temu-kembalikan (\cite{MANNING}). Contoh dari stopwords antara lain “yang”, “dan”, “atau”, “di”, dan lain-lain. Kata yang sudah melalui proses tokenisasi dan pemotongan stopwords akan diberikan pembobotan.
+
+Pembobotan merupakan proses untuk memberikan nilai bobot pada suatu term untuk merepresentasikan ciri suatu dokumen. Hasil pembobotan akan membentuk suatu sistem peringkat yang akan mengurutkan term dengan tingkat kemiripan tertinggi ke tingkat kemiripan terendah.
+
+Pada perangkat lunak Lucene digunakan pembobotan \textit{term frequency} (TF) dan \textit{Inverse Document Frequency} (IDF). \textit{Term frequency} melakukan pembobotan untuk menghitung jumlah kemunculan term pada suatu dokumen dan sebagai ukuran untuk tingkat relevansi dokumen (\cite{MINACK}). \textit{Inverse document frequency} (IDF) akan menghitung jumlah dokumen yang memiliki suatu term tertentu untuk dibandingkan dengan jumlah semua dokumen. Untuk menghitung term $t$ pada dokumen $d$ digunakan 
+\begin{equation}
+tf.idf_{td}=tf_{td}\times \log \frac{N}{df_t}
+\label{eq:tfidf}
+\end{equation}
+\noindent dengan $N$ adalah jumlah dokumen tanaman obat, $df_t$ adalah jumlah dokumen yang mengandung \textit{term} $t$.
+
+Proses pencarian dapat dilakukan jika dokumen sudah terindeks pada dokumen Lucene. Pencarian dilakukan menggunakan kueri yang berhubungan dengan tanaman obat, kemudian dihitung nilai kemiripannya. Nilai kemiripan akan berpengaruh terhadap hasil temu kembali oleh sistem. Lucene menggunakan fungsi \textit{Vector Space Model} (VSM) untuk menentukan \textit{similarity} hasil pencarian seperti pada persamaan 
+\begin{equation}
+sim(q,d)=\frac{V_q \cdot V_d}{\mid V_q\mid \mid V_d\mid}
+\label{eq:similarity}
+\end{equation}
+\noindent dengan $V_q$ merupakan vektor dokumen $q$, $V_d$ merupakan vektor dokumen $d$, $\mid V_q\mid$ merupakan panjang vektor dokumen $q$, dan $\mid V_d\mid$ merupakan panjang vektor dokumen $d$. Untuk skoring pada Lucene dapat dilihat pada persamaan 
+\begin{equation}
+sim(q,d)=\frac{tf_{td}}{tf_{tq}} \cdot \frac{1}{\mid q\mid}
+\sum_{t \in q} (tf_{td} idf_t^2) \cdot boost() \cdot \frac{1}{\mid d\mid}
+\label{eq:simlucene}
+\end{equation}
+\noindent dengan $boost()$ merupakan nilai \textit{booster} yang diberikan terhadap \textit{term} pada kueri dengan nilai default 1.0. Nilai \textit{booster} akan dikalikan terhadap \textit{term} $t$ yang diberikan \textit{boost}.
+
+\subsection*{Evaluasi}
+Evalusi dilakukan terhadap dokumen yang ditemukembalikan oleh mesin pencari berdasarkan kueri yang diberikan. Jumlah kueri yang digunakan yaitu 29 kueri yang didapatkan dari penelitian \citeauthor{HERAWAN} (\cite*{HERAWAN}). Pada penelitian ini dilakukan evaluasi temu kembali informasi menggunakan \textit{recall} dan \textit{precision}. \textit{Precision} didefinisikan sebagai rasio dokumen yang ditemukembalikan adalah relevan dengan persamaan
+\begin{equation}
+precision=\frac{a}{b}
+\label{eq:precision}
+\end{equation}
+\noindent dengan $a$ merupakan banyaknya dokumen relevan yang ditemukembalikan dan $b$ adalah jumlah semua dokumen dari hasil pencarian. 
+
+\textit{Recall} didefinisikan sebagai rasio dokumen relevan yang ditemukembalikan dengan persamaan
+\begin{equation}
+recall=\frac{a}{c}
+\label{eq:recall}
+\end{equation}
+\noindent dengan $c$ adalah banyaknya dokumen relevan yang terdapat pada korpus.
+
+Nilai rata-rata \textit{interpolated precision} dapat mencerminkan urutan dari dokumen-dokumen yang relevan pada perangkingan. Standar yang digunakan adalah 11 level \textit{recall standar} yaitu 0.0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9 dan 1.0. Nilai \textit{precision} hasil interpolasi maksimum didefinisikan dengan persamaan
+\begin{equation}
+P_{interp}(r_j)=\max_{r_j\leq r\leq r_{j+1}} P(r)
+\label{eq:interpolasi}
+\end{equation}
+\noindent dengan $P(r)$ adalah nilai \textit{precision} pada suatu titik \textit{recall} $r$.
+
+\pagebreak %jika diperlukan karena subbab terpotong
+\subsection*{Lingkungan Pengembangan}
+Spesifikasi perangkat lunak dan perangkat keras yang digunakan pada penelitian ini yaitu:
+\begin{enumerate}[noitemsep] 
+\item Perangkat lunak:
+   \begin{itemize}
+      \item Sistem Operasi Windows 8.1 x64
+      \item Bahasa pemrograman PHP
+      \item XAMPP v3.2.1
+      \item ZendLucene, digunakan untuk search engine
+      \item Sesame, digunakan untuk pemrosesan RDF
+      \item Sublime Text 3, digunakan sebagai \textit{editor} kode program
+      \item Codeigniter 2.2.0, digunakan sebagai \textit{framework} PHP
+   \end{itemize}
+\item Perangkat keras berupa komputer personal dengan spesifikasi sebagai berikut:
+   \begin{itemize}
+      \item \textit{Processor} Intel Core i5
+      \item RAM 4 GB DDR3
+      \item \textit{Monitor} LCD 14.0” 16:9 HD
+      \item \textit{Harddisk} 500GB
+   \end{itemize}
+\end{enumerate}

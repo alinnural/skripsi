@@ -1,0 +1,24 @@
+Catatan bimbingan 09/11/2017 - Pak Irman
+- Beri feedback jika terjadi infeasible
+- Menulis untuk seminar
+- Validasi ke Pak Idat
+- Pahamkan tentang satuan dan lainnya
+
+Catatan bimbingan 10/11/2017 - Ka Ihsan
+- Sistem yang kurang:
+	Disimpan hasil forsumnya
+	Tampilan jika infeasible
+	Backend kelola data
+	Tambahan untuk hasil forsum
+
+Catatan bimbingan 14/11/2017 - Pak Idat
+- Pada perhitungan:
+	Beri nilai 'Total'
+	Satuannya persen
+	Lihat referensi pada pom qm
+	Batasan 0 - 100
+	Resultnya dalam persen di convert ke kg
+	Masukkan nilai untuk berapa ton
+	Tambah 'New Ransum'
+	Mobile
+	Nilai awal pakan 0-100
